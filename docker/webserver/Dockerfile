@@ -8,6 +8,9 @@ RUN npm install
 
 COPY . .
 
-FROM base as tasks
-CMD [ "npm", "run", "tasks" ]
+FROM base as webserver
+EXPOSE 3000
+CMD [ "npm", "run", "start-webserver" ] 
+
+
 

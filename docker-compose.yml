@@ -6,8 +6,8 @@ services:
     restart: always
     build:
       context: .
-      dockerfile: ./docker/web/Dockerfile
-      target: web
+      dockerfile: ./docker/webserver/Dockerfile
+      target: webserver
     ports:
       - "3000:3000"
   tasks:
@@ -15,5 +15,5 @@ services:
     restart: always
     build:
       context: .
-      dockerfile: ./docker/tasks/Dockerfile
-      target: tasks
+      dockerfile: ./docker/jobserver/Dockerfile
+      target: jobserver

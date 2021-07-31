@@ -8,9 +8,6 @@ RUN npm install
 
 COPY . .
 
-FROM base as web
-EXPOSE 3000
-CMD [ "npm", "run", "start" ] 
-
-
+FROM base as jobserver
+CMD [ "npm", "run", "start-jobserver" ]
 

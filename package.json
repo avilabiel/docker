@@ -8,7 +8,7 @@
     "node-cron": "^3.0.0"
   },
   "scripts": {
-    "start": "node index.js",
-    "tasks": "node tasks.js"
+    "start-webserver": "node webserver.js",
+    "start-jobserver": "node jobserver.js"
   }
 }
