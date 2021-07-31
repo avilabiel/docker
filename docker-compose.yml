@@ -1,0 +1,19 @@
+version: "3.9"
+
+services:
+  web:
+    container_name: web
+    restart: always
+    build:
+      context: .
+      dockerfile: ./docker/web/Dockerfile
+      target: web
+    ports:
+      - "3000:3000"
+  tasks:
+    container_name: tasks
+    restart: always
+    build:
+      context: .
+      dockerfile: ./docker/tasks/Dockerfile
+      target: tasks
