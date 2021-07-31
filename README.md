@@ -26,6 +26,7 @@ So, we would have a `docker` folder with:
 - `Dockerfile`: containing the image for web service
 - `jobserver`: folder
 - `Dockerfile`: containing the image for job service
+- `docker-compose`: to get each container and run them
 
 Then, the docker compose will serve the two images. Also, the docker compose could be used to serve any other dependency or system (like DB, Redis, MySQL, NGINX, Apache, etc.)
 
@@ -36,15 +37,14 @@ This approach is based on the idea that we don't want to follow the recomendatio
 So, we would have:
 
 - `Dockerfile`: that builds one image with two services (webserver + jobserver)
-- `docker-compose`: to build this image + anything else
 - `wrapper_script.sh`: the script that will start the services
 
 ## Testing Approaches
 
-Then, it's possible to test the approaches. The requirements are the following:
+It's possible to test the approaches. The requirements are the following:
 
 - The app should log "tick!" every second
-- The localhost:3000 should show "{ "hello": "world"}"
+- The localhost:3000 should show "{ "hello": "world" }"
 
 ### Each service has its Dockerfile + Docker compose
 
@@ -56,13 +56,13 @@ To test this approach just follow the steps below:
 
 1. `chmod +x wrapper_script.sh`: to enable Docker to execute it
 2. `docker build -t my-container .`: to build the container with two services
-3. `docker run -p 3000:3000 my-web-server`: to run the container on port 3000
+3. `docker run -p 3000:3000 my-container`: to run the container on port 3000
 4. See if the requirements above are fulfilled ("tick!" + accessing localhost:3000)
 
 ## Conclusion
 
-I had a fun time by making this exploration. After all, I think we should follow what Docker recommends and we should avoid one Dockerfile that has several services inside somehow.
+I had a fun time making this exploration. After all, I think we should follow what Docker recommends by avoiding one Dockerfile that has several services inside. Besides, when each service has its own Dockerfile we avoid the usage of a `wrapper_script.sh` to start the services in the background. So, **each service having its own Dockerfile + Docker Compose** is simpler!
 
-Also, I had some trouble to close the container. Probably Docker doesn't know how to handle with multiple services on the same container, that's why we have just one `CMD` command in a Dockerfile, the last `CMD` remains.
+Also, I had some trouble closing the container with multiple services. Probably Docker doesn't know how to handle well with multiple services on the same container. That's why Docker runs just one `CMD` command in a Dockerfile, the last `CMD` overrides the previous ones.
 
-So, after testing I suggest to always go with `each service has its Dockerfile + Docker Compose`.
+So, after testing I suggest always go with **each service having its own Dockerfile + Docker Compose**.
