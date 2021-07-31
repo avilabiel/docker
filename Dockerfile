@@ -8,12 +8,7 @@ RUN npm install
 
 COPY . .
 
-FROM base as web
-EXPOSE 3000
-CMD [ "npm", "run", "start" ] 
-
-FROM base as tasks
-CMD [ "npm", "run", "tasks" ]
+CMD ./wrapper_script.sh
 
 
 
